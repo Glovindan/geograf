@@ -1,2 +1,5 @@
 /api/node_modules
+/api/.env
+/api/.idea
+
 /client/node_modules

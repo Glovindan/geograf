@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+
+    height: 60px;
+    width: 100%;
+
+    background-color: rgba(255, 255, 255, 0.33);
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    width: 100%;
+}
+
+.buttonsWrapper {
+    display: flex;
+    gap: 10px;
+}

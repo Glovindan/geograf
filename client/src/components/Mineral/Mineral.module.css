@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    gap: 20px;
+
+    padding: 10px;
+
+    cursor: pointer;
+
+    background-color: rgba(255, 255, 255, 0.33);
+    transition: 0.2s;
+}
+
+.wrapper:hover {
+    transform: scale(1.02);
+}
+
+.wrapper:active {
+    transform: scale(0.99);
+}
+
+.image {
+    width: 150px;
+    height: 150px;
+}
+
+.textWrapper {
+    
+}
+
+.heading {
+
+}
+
+.about {
+
+}

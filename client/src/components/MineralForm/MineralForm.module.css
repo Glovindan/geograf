@@ -1,0 +1,13 @@
+.wrapper {
+    background-color: rgba(255, 255, 255, 0.33);
+}
+
+.content {
+    padding: 25px;
+}
+
+.btns {
+    margin-top: 20px;
+    display: flex;
+    gap: 25px;
+}

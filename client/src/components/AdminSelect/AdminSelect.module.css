@@ -1,0 +1,27 @@
+.wrapper {
+    background-color: rgba(255, 255, 255, 0.33);
+    padding: 25px;
+    width: 70%;
+}
+
+.heading {
+    text-align: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.element {
+    border: 1px rgba(0, 183, 255, 0.432) solid;
+    cursor: pointer;
+    font-size: x-large;
+    height: 35px;
+}
+
+.element:hover {
+    border: 1px rgba(0, 183, 255, 0.699) solid;
+    background-color: rgba(188, 211, 255, 0.555);
+}

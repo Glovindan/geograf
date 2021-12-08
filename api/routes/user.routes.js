@@ -2,8 +2,9 @@ const {Router} = require('express');
 const { check, validationResult } = require('express-validator');
 const router = Router();
 const Element = require('../models/Element')
+const elementsListPageSize = 10;
 
-router.get('/getMineralList', async(req,res) => {
+router.get('/getMineralsList', async(req,res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -13,10 +14,23 @@ router.get('/getMineralList', async(req,res) => {
                 message: 'Вы допустили ошибку . . .'
             })
         }
+        const {page} = req.query;
+        const elementsAggregation = await Element.aggregate([
+            {
+                $project: {
+                    "title":1,
+                    "imageURL":1
+                }
+            },
+            {
+                $skip: (page - 1) * elementsListPageSize
+            },
+            {
+                $limit: elementsListPageSize
+            }
+        ])
 
-        return res.status(200).json({ message: {
-                status: true
-            }});
+        return res.status(200).json({ message: elementsAggregation});
     } catch (e) {
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });
     }

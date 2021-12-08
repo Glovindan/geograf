@@ -6,23 +6,22 @@ const app = express();
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 
-app.use(express.json({ extended: true }));
+app.use(express.json());
 app.use('/admin', require('./routes/admin.routes'));
 app.use('/user', require('./routes/user.routes'));
 
 async function start() {
     try {
-        // await mongoose.connect(MONGO_URI, {
-        //     useNewUrlParser: true,
-        //     useUnifiedTopology: true,
-        //     useCreateIndex: true,
-        // },() => {console.log('connected to mongo!')});
+        await mongoose.connect(MONGO_URI,{}, e => {
+            if(e) throw e
+            console.log('connected to mongo!');
+        });
 
         app.listen(PORT, () => {
             console.log(`server started at http://localhost:${PORT}`)
         })
     } catch(e) {
-        console.log('Ошибка сервера', e.message);
+        console.error(e);
         process.exit(1);
     }
 }

@@ -1,14 +1,18 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require("mongoose");
+const cors = require('cors');
 const app = express();
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
 
+app.use(cors());
 app.use(express.json());
 app.use('/admin', require('./routes/admin.routes'));
 app.use('/user', require('./routes/user.routes'));
+
+app.options('*', cors());
 
 async function start() {
     try {

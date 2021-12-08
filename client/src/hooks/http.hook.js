@@ -1,4 +1,6 @@
 import { useState, useCallback } from 'react';
+import axios from 'axios';
+
 import { API_URL } from '../constants/constants';
 
 export const useHttp = () => {
@@ -7,12 +9,21 @@ export const useHttp = () => {
 
     const request = useCallback(async (
         url,
-        options,
+        method,
+        headers,
         body
     ) => {
         try {
             setLoading(true);
-            const res = await fetch(API_URL + url, options, body);
+            const res = await axios({
+                method: method,
+                url: API_URL + url,
+                headers: {
+                    ...headers
+                },
+                data: {
+                    ...body
+                }});
             if (!res.ok) {
                 throw new Error('Произошёл сбой на сервере');
             }

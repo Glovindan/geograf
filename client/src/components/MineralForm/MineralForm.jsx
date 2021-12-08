@@ -31,14 +31,16 @@ export const MineralForm = () => {
         setMineralCoordinate(event.target.value);
     }
 
-    const requestHandler = () => {
-        console.log('request');
-        request('/test', {
-            method: 'POST',
-        }, {
-            mineralName,
-            mineralAbout
-        })
+    const requestHandler = async () => {
+        await request(
+            'admin/login',
+            'POST',
+            {},
+            {
+                login: "test",
+                password: "test"
+            }
+        )
     }
 
     return (

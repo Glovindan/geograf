@@ -10,8 +10,8 @@ export const AdminPage = () => {
         <>
             {/* <Auth /> */}
             <AdminPanel />
-            <AdminSelect textAbout={'Выберите минерал который надо удалить'} />
-            {/* <MineralForm /> */}
+            {/* <AdminSelect textAbout={'Выберите минерал который надо удалить'} /> */}
+            <MineralForm />
         </>
     )
 }

@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 400px;
+}
+
+.label {
+    padding-left: 10px;
+}
+
+.input {
+    height: 35px;
+    border: none;
+    padding: 10px;
+    font-size: 19px;
+}
+
+.input:focus-visible {
+    outline: none;
+}

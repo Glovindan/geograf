@@ -9,6 +9,7 @@ export const Header = () => {
                 <h1>География</h1>
                 <div className={styles.buttonsWrapper}>
                     <p>Админка</p>
+                    <p>Карта</p>
                     <p>Домой</p>
                 </div>
             </div>

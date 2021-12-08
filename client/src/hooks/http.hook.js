@@ -7,11 +7,12 @@ export const useHttp = () => {
 
     const request = useCallback(async (
         url,
-        options
+        options,
+        body
     ) => {
         try {
             setLoading(true);
-            const res = await fetch(API_URL + url, options);
+            const res = await fetch(API_URL + url, options, body);
             if (!res.ok) {
                 throw new Error('Произошёл сбой на сервере');
             }

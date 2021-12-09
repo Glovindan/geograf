@@ -7,7 +7,7 @@ import { Button } from '../Button/Button'
 
 import styles from './MineralForm.module.css'
 
-export const MineralForm = () => {
+export const MineralForm = ({ onBackClick }) => {
     const [mineralName, setMineralName] = useState('');
     const [mineralAbout, setMineralAbout] = useState('');
     const [mineralImage, setMineralImage] = useState('');
@@ -79,7 +79,7 @@ export const MineralForm = () => {
                     onChange={handleMineralCoordinate}
                 />
                 <div className={styles.btns}>
-                    <Button text='Назад' />
+                    <Button text='Назад' onClick={onBackClick} />
                     <Button text='Отправить' onClick={requestHandler} />
                 </div>
             </div>

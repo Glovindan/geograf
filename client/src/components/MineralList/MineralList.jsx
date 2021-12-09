@@ -1,5 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Mineral } from '../Mineral/Mineral';
+
+import { ROUTES } from '../../constants/routes';
 
 import styles from './MineralList.module.css';
 
@@ -22,7 +25,9 @@ export const MineralList = () => {
         <div className={styles.wrapper}>
             {mock.map((mineral, index) => {
                 return (
-                    <Mineral key={index} {...mineral} />
+                    <Link to={ROUTES.MINERAL_PAGE + '/' + index}>
+                        <Mineral key={index} {...mineral} />
+                    </Link>
                 )
             })}
         </div>

@@ -24,12 +24,15 @@ export const useHttp = () => {
                 data: {
                     ...body
                 }});
-            if (!res.ok) {
+
+            if (res.statusText !== 'OK') {
                 throw new Error('Произошёл сбой на сервере');
             }
-            const json = await res.json();
 
-            return json;
+            return {
+                status: res.status,
+                ...res.data
+            };
         } catch (e) {
             setError(e);
         } finally {

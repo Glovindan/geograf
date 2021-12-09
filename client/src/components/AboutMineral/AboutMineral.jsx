@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom';
+
+import { useHttp } from '../../hooks/http.hook';
 
 import styles from './AboutMineral.module.css';
 
 export const AboutMineral = () => {
+    const { request, loading, error } = useHttp();
+    const { id } = useParams();
+
+    useEffect(() => {
+        request(
+            `getMineral?id=${id}`,
+            'GET',
+        )
+    }, [])
+    
     return (
         <div className={styles.wrapper}>
             <div className={styles.content}>

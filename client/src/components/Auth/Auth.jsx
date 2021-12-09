@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
+import { useAlert } from 'react-alert';
+
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
+import { useHttp } from '../../hooks/http.hook';
 
 import styles from './Auth.module.css';
+import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 
-export const Auth = () => {
+export const Auth = ({ onSuccessAuth }) => {
+    const alert = useAlert();
+
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+
+    const { request, loading, error } = useHttp();
 
     const handleLogin = (event) => {
         setLogin(event.target.value);
@@ -14,6 +22,33 @@ export const Auth = () => {
 
     const handlePassword = (event) => {
         setPassword(event.target.value);
+    }
+
+    const handleButtonClick =  async () => {
+        try {
+            const res = await request(
+                'admin/login',
+                'POST',
+                {},
+                {
+                    login: login,
+                    password: password
+                }
+            )
+    
+            if (res.status != 200) {
+                alert.error('Ошибочка вышла, хех :)');
+                return;
+            }
+    
+            console.log('res', res);
+
+            localStorage.setItem(LOCAL_STORAGE_KEY, res.token);
+            alert.show(res.message);
+            onSuccessAuth();
+        } catch (e) {
+            alert.error('Ошибочка вышла, хех :)');
+        }
     }
 
     return (
@@ -31,7 +66,7 @@ export const Auth = () => {
                     value={password}
                     onChange={handlePassword}
                 />
-                <Button text={'Войти'} />
+                <Button text={'Войти'} onClick={handleButtonClick} />
             </div>
         </div>
     )

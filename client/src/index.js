@@ -7,12 +7,11 @@ import './index.css';
 import App from './App';
 
 const options = {
-  position: 'bottom center',
-  timeout: 5000,
-  offset: '30px',
+  position: 'bottom right',
+  timeout: 2000,
+  offset: '5px',
   transition: 'scale'
 }
-
 
 ReactDOM.render(
   <React.StrictMode>

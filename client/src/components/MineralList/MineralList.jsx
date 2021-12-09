@@ -1,6 +1,10 @@
 import React, {useState} from 'react'
 import { Mineral } from '../Mineral/Mineral';
 import { Button } from "../Button/Button";
+import { Link } from 'react-router-dom';
+
+import { ROUTES } from '../../constants/routes';
+
 import styles from './MineralList.module.css';
 import { useFetch, Provider } from "use-http";
 
@@ -68,7 +72,9 @@ export const MineralList = () => {
         <div className={styles.wrapper}>
             {mock.map((mineral) => {
                 return (
-                    <Mineral key={mineral._id} {...mineral} />
+                    <Link to={ROUTES.MINERAL_PAGE + '/' + index}>
+                        <Mineral key={index} {...mineral} />
+                    </Link>
                 )
             })}
         </div>

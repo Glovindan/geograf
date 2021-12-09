@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Mineral } from '../Mineral/Mineral';
 import { Button } from "../Button/Button";
 import { Link } from 'react-router-dom';
@@ -6,74 +6,39 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 
 import styles from './MineralList.module.css';
-import { useFetch, Provider } from "use-http";
 
-const mock = [{
-        "_id": "61b116a598572aa63abe6df7",
-        "title": "berkshire_practical_logistical.ivu",
-        "imageURL": "https://picsum.photos/200/300?random=1"
-    },
-    {
-        "_id": "61b116ff98572aa63abe6df9",
-        "title": "soluta",
-        "imageURL": "https://picsum.photos/200/300?random=2"
-    },
-    {
-        "_id": "61b1170098572aa63abe6dfb",
-        "title": "nulla",
-        "imageURL": "https://picsum.photos/200/300?random=3"
-    },
-    {
-        "_id": "61b1170d98572aa63abe6dfd",
-        "title": "autem",
-        "imageURL": "https://picsum.photos/200/300?random=4"
-    },
-    {
-        "_id": "61b1170f98572aa63abe6dff",
-        "title": "in",
-        "imageURL": "https://picsum.photos/200/300?random=5"
-    },
-    {
-        "_id": "61b1171098572aa63abe6e01",
-        "title": "facere",
-        "imageURL": "https://picsum.photos/200/300?random=6"
-    },
-    {
-        "_id": "61b1171298572aa63abe6e03",
-        "title": "tempora",
-        "imageURL": "https://picsum.photos/200/300?random=7"
-    },
-    {
-        "_id": "61b1171398572aa63abe6e05",
-        "title": "sint",
-        "imageURL": "https://picsum.photos/200/300?random=8"
-    },
-    {
-        "_id": "61b1174d98572aa63abe6e07",
-        "title": "et",
-        "imageURL": "https://picsum.photos/200/300?random=9"
-    },
-    {
-        "_id": "61b1174f98572aa63abe6e09",
-        "title": "maxime",
-        "imageURL": "https://picsum.photos/200/300?random=10"
-    }
-];
+import { useHttp } from '../../hooks/http.hook';
+import { Loader } from '../Loader/Loader';
 
 export const MineralList = () => {
-    //Щитпост
-    // const [page, setPage] = useState(1)
-    // const { loading, error, data: elements } = useFetch(`/user/getMineralsPage?page=${page}`, {
-    //     onNewData: (currUsers, newUsers) => [...currUsers, ...newUsers],
-    //     data: []
-    // }, [page])
+    const { request, loading, error } = useHttp();
+    const [list, setList] = useState([]);
+
+    const getMineralList = async () => {
+        const res = await request(
+            'user/getMineralsList',
+            'GET',
+            {},
+            {
+                page: 0
+            }
+        )
+
+        setList(res.message);
+    }
+
+    useEffect(() => {
+        getMineralList();
+    }, []);
 
     return (
         <div className={styles.wrapper}>
-            {mock.map((mineral) => {
+            {loading ? <Loader /> :
+            list.length > 0 && list.map((mineral, index) => {
+                console.log(mineral);
                 return (
-                    <Link to={ROUTES.MINERAL_PAGE + '/' + index}>
-                        <Mineral key={index} {...mineral} />
+                    <Link key={index} to={ROUTES.MINERAL_PAGE + '/' + mineral._id}>
+                        <Mineral {...mineral} />
                     </Link>
                 )
             })}

@@ -19,7 +19,10 @@ export const MainPage = () => {
         <>
             <div className={styles.mineralList}>
                 <MineralList />
-                <Button text="aaa" />
+                <div className={styles.navButtons}>
+                    <Button text="Следующая страница" />
+                    <Button text="Предыдущая страница" />
+                </div>
             </div>
         </>
     )

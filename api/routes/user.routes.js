@@ -14,7 +14,7 @@ router.get('/getMineralsList', async(req,res) => {
                 message: 'Вы допустили ошибку . . .'
             })
         }
-        const {page} = req.query;
+        const {page} = req.body;
         const elementsAggregation = await Element.aggregate([
             {
                 $project: {

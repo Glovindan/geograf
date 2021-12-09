@@ -15,10 +15,10 @@ function App() {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <Header />
-        <Loader />
-        {/* <MainPage /> */}
+        {/*<Loader />*/}
+         <MainPage />
         {/* <AboutMineral /> */}
-        <AdminPage />
+        {/*<AdminPage />*/}
       </div>
     </div>
   );

@@ -16,15 +16,15 @@ app.options('*', cors());
 
 async function start() {
     try {
-        await mongoose.connect(MONGO_URI,{}, e => {
-            if(e) throw e
+        await mongoose.connect(MONGO_URI, {}, e => {
+            if (e) throw e
             console.log('connected to mongo!');
         });
 
         app.listen(PORT, () => {
             console.log(`server started at http://localhost:${PORT}`)
         })
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         process.exit(1);
     }

@@ -9,8 +9,6 @@ import { LOCAL_STORAGE_KEY } from '../../constants/constants'
 import styles from './AdminSelect.module.css'
 import { MineralForm } from '../MineralForm/MineralForm'
 
-const mock = ['кот', 'ещё кот', 'другой кот', 'четвёртый кот', 'me', 'michael']
-
 export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
     const [list, setList] = useState([]);
     const [mineral, setMineral] = useState(null);

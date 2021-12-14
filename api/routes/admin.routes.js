@@ -51,14 +51,14 @@ router.post('/create', [auth],
             })
         }
 
-        const{title,imageURL,description,companies,coords} = req.body;
+        const { title, imageURL, description, companies, coords } = req.body;
 
         const element = new Element({
-            title:title,
-            imageURL:imageURL,
-            description:description,
-            companies:companies,
-            coords:coords
+            title: title,
+            imageURL: imageURL,
+            description: description,
+            companies: companies,
+            coords: coords
         })
 
         await element.save();
@@ -83,6 +83,8 @@ router.post('/edit', [auth],async(req,res) => {
 
         const{id,title,imageURL,description,companies,coords} = req.body;
 
+        console.log('req.body', req.body);
+
         const element = Element.findById(id);
         if(!element) {
             return res.status(400).json({ message: 'Неверный идентификатор' });
@@ -94,10 +96,12 @@ router.post('/edit', [auth],async(req,res) => {
         if(companies) element.companies = companies;
         if(coords) element.coords = coords;
 
+        //TODO: Схуяли ?п
         element.save();
 
         return res.status(200).json({ message:"Элемент обновлен"});
     } catch (e) {
+        console.log(e)
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });
     }
 })

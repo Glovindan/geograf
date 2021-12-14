@@ -10,9 +10,7 @@ import { ROUTES } from './constants/routes';
 
 import { Header } from './components/Header/Header';
 import { MainPage } from './Pages/MainPage/MainPage';
-import { Loader } from './components/Loader/Loader';
 
-import { AboutPage } from './Pages/AboutPage/AboutPage';
 import { AboutMineral } from './components/AboutMineral/AboutMineral';
 import { AdminPage } from './Pages/AdminPage/AdminPage';
 

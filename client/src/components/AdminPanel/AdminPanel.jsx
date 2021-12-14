@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 
-import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 import { Button } from '../Button/Button'
 import { MineralForm } from '../MineralForm/MineralForm';
+import { AdminSelect } from '../AdminSelect/AdminSelect';
 
+import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 import styles from './AdminPanel.module.css';
 
 export const AdminPanel = ({ onExit }) => {
@@ -38,9 +39,9 @@ export const AdminPanel = ({ onExit }) => {
                     <Button text={'Выйти из аккаунта'} onClick={handleExitClick} />
                 </div>
             ) : (
-                isAddMineral && <MineralForm onBackClick={() => setIsAddMineral(false)} /> ||
-                isEditMineral && <div>Edit mineral</div> ||
-                isDeleteMineral && <div>Delete mineral</div>
+                isAddMineral && <MineralForm onBackClick={() => setIsAddMineral(false)} isCreate={true} /> ||
+                isEditMineral && <AdminSelect textAbout={'Выберите элемент, который нужно отредактировать'} onBackClick={() => setIsDeleteMineral(false)} /> ||
+                isDeleteMineral && <AdminSelect isDelete={true} textAbout={'Выберите элемент, который нужно удалить'} onBackClick={() => setIsDeleteMineral(false)} />
             )}
         </div>
     )

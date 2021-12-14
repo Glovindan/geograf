@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useAlert  } from 'react-alert'
 
 import { useHttp } from '../../hooks/http.hook'
 
@@ -6,12 +7,18 @@ import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
 
 import styles from './MineralForm.module.css'
+import { LOCAL_STORAGE_KEY } from '../../constants/constants'
 
-export const MineralForm = ({ onBackClick }) => {
-    const [mineralName, setMineralName] = useState('');
-    const [mineralAbout, setMineralAbout] = useState('');
-    const [mineralImage, setMineralImage] = useState('');
-    const [mineralCoordinate, setMineralCoordinate] = useState('');
+export const MineralForm = ({ onBackClick, mineral, isCreate }) => {
+    const alert = useAlert();
+    const { name, about, company, image, coordinate } = mineral;
+
+
+    const [mineralName, setMineralName] = useState(name || '');
+    const [mineralAbout, setMineralAbout] = useState(about || '');
+    const [mineralCompany, setMineralCompany] = useState(company || '');
+    const [mineralImage, setMineralImage] = useState(image || '');
+    const [mineralCoordinate, setMineralCoordinate] = useState(coordinate || '');
 
     const { error, loading, request } = useHttp();
 
@@ -23,6 +30,10 @@ export const MineralForm = ({ onBackClick }) => {
         setMineralAbout(event.target.value);
     }
 
+    const handleMineralCompany = (event) => {
+        setMineralCompany(event.target.value);
+    }
+
     const handleMineralImage = (event) => {
         setMineralImage(event.target.value);
     }
@@ -32,15 +43,56 @@ export const MineralForm = ({ onBackClick }) => {
     }
 
     const requestHandler = async () => {
-        await request(
-            'admin/login',
-            'POST',
-            {},
-            {
-                login: "test",
-                password: "test"
+        if (
+            mineralName.length === 0 || 
+            mineralImage.length === 0 ||
+            mineralAbout.length === 0 ||
+            mineralCompany.length === 0 ||
+            mineralCoordinate.length === 0
+            ) {
+                alert.error('Все поля должны быть заполнены!')
+                return;
             }
-        )
+
+        try {
+            if (isCreate) {
+                await request(
+                    'admin/create',
+                    'POST',
+                    {
+                        authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`
+                    },
+                    {
+                        title: mineralName,
+                        imageURL: mineralImage,
+                        description: mineralAbout,
+                        companies: mineralCompany,
+                        coords: mineralCoordinate
+                    }
+                );
+                alert.info('Минерал добавлен');
+            } else {
+                await request(
+                    'admin/edit',
+                    'POST',
+                    {
+                        authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEY)}`
+                    },
+                    {
+                        id: mineral.id,
+                        title: mineralName,
+                        imageURL: mineralImage,
+                        description: mineralAbout,
+                        companies: mineralCompany,
+                        coords: mineralCoordinate
+                    }
+                );
+                alert.info('Минерал обновлен');
+            }
+        } catch (e) {
+            alert.error(e);
+        }
+
     }
 
     return (
@@ -63,6 +115,14 @@ export const MineralForm = ({ onBackClick }) => {
                     onChange={handleMineralAbout}
                 />
                 <Input
+                    text={'Введите компании по добыче минерала'}
+                    name={'mineralCompany'}
+                    labelText={'Компании'}
+                    type={'text'}
+                    value={mineralCompany}
+                    onChange={handleMineralCompany}
+                />
+                <Input
                     text={'Введите URL для картинки'}
                     name={'mineralAbout'}
                     labelText={'URL картинки'}
@@ -80,7 +140,9 @@ export const MineralForm = ({ onBackClick }) => {
                 />
                 <div className={styles.btns}>
                     <Button text='Назад' onClick={onBackClick} />
-                    <Button text='Отправить' onClick={requestHandler} />
+                    {!loading &&
+                        <Button text='Отправить' onClick={requestHandler} />
+                    }
                 </div>
             </div>
         </div>

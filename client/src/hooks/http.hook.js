@@ -15,6 +15,7 @@ export const useHttp = () => {
     ) => {
         try {
             setLoading(true);
+
             const res = await axios({
                 method: method,
                 url: API_URL + url,

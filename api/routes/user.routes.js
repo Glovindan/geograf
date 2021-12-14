@@ -14,7 +14,7 @@ router.get('/getMineralsList', async(req,res) => {
                 message: 'Вы допустили ошибку . . .'
             })
         }
-        const {page} = req.body;
+        const {page} = req.headers;
         const elementsAggregation = await Element.aggregate([
             {
                 $project: {
@@ -29,6 +29,23 @@ router.get('/getMineralsList', async(req,res) => {
                 $limit: elementsListPageSize
             }
         ])
+
+        return res.status(200).json({ message: elementsAggregation});
+    } catch (e) {
+        return res.status(400).json({ message: 'Произошла ошибка на сервере' });
+    }
+})
+
+router.get('/getMineralAllList', async(req,res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log('errors', errors);
+            return res.status(400).json({
+                errors: errors.array(),
+                message: 'Вы допустили ошибку . . .'
+            })
+        }
 
         return res.status(200).json({ message: elementsAggregation});
     } catch (e) {

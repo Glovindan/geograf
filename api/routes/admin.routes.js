@@ -85,7 +85,7 @@ router.post('/edit', [auth],async(req,res) => {
 
         console.log('req.body', req.body);
 
-        const element = Element.findById(id);
+        const element = await Element.findById(id);
         if(!element) {
             return res.status(400).json({ message: 'Неверный идентификатор' });
         }
@@ -96,8 +96,8 @@ router.post('/edit', [auth],async(req,res) => {
         if(companies) element.companies = companies;
         if(coords) element.coords = coords;
 
-        //TODO: Схуяли ?п
-        element.save();
+        //потому что await
+        await element.save();
 
         return res.status(200).json({ message:"Элемент обновлен"});
     } catch (e) {

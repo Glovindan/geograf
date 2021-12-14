@@ -47,6 +47,13 @@ router.get('/getMineralAllList', async(req,res) => {
             })
         }
 
+        const elementsAggregation = await Element.aggregate([
+            {
+                $project: {
+                    "title":1
+                }
+            }
+        ])
         return res.status(200).json({ message: elementsAggregation});
     } catch (e) {
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });
@@ -65,7 +72,7 @@ router.get('/getMineral', async(req,res) => {
         }
         const {id} = req.query;
         const element = await Element.findById(id);
-
+        console.log(element, id)
         return res.status(200).json({ message: element});
     } catch (e) {
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });

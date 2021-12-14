@@ -9,16 +9,22 @@ import { Button } from '../Button/Button'
 import styles from './MineralForm.module.css'
 import { LOCAL_STORAGE_KEY } from '../../constants/constants'
 
-export const MineralForm = ({ onBackClick, mineral, isCreate }) => {
+export const MineralForm = ({ onBackClick, mineral = {}, isCreate }) => {
     const alert = useAlert();
-    const { name, about, company, image, coordinate } = mineral;
+    const { 
+        name = '', 
+        about = '', 
+        company = '', 
+        image = '', 
+        coordinate = '' 
+    } = mineral;
 
 
-    const [mineralName, setMineralName] = useState(name || '');
-    const [mineralAbout, setMineralAbout] = useState(about || '');
-    const [mineralCompany, setMineralCompany] = useState(company || '');
-    const [mineralImage, setMineralImage] = useState(image || '');
-    const [mineralCoordinate, setMineralCoordinate] = useState(coordinate || '');
+    const [mineralName, setMineralName] = useState(name);
+    const [mineralAbout, setMineralAbout] = useState(about);
+    const [mineralCompany, setMineralCompany] = useState(company);
+    const [mineralImage, setMineralImage] = useState(image);
+    const [mineralCoordinate, setMineralCoordinate] = useState(coordinate);
 
     const { error, loading, request } = useHttp();
 
@@ -131,7 +137,7 @@ export const MineralForm = ({ onBackClick, mineral, isCreate }) => {
                     onChange={handleMineralImage}
                 />
                 <Input
-                    text={'Введите координаты минерала'}
+                    text={'x.x, y.y; i.i, j.j; . . .'}
                     name={'mineralCoordinate'}
                     labelText={'Координаты минерала'}
                     type={'text'}

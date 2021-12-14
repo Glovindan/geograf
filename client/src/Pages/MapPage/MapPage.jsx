@@ -3,16 +3,15 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps';
 
 import { useHttp } from '../../hooks/http.hook'
 
-import { LOCAL_STORAGE_KEY } from '../../constants/constants';
 import styles from './MapPage.module.css';
 import { Button } from "../../components/Button/Button";
-
-const mockCoord = [[55.75, 37.57], [25.75, 37.57], [55.75, 17.57], [15.75, 17.57]]
 
 export const MapPage = () => {
     const [isMap, setMap] = useState(false);
     const [list, setList] = useState();
     const { request, loading, error } = useHttp();
+    const [mineral, setMineral] = useState();
+    const [mineralCoords, setMineralCoords] = useState([]);
 
     const getMineralInfo = async (id) => {
         const res = await request(
@@ -25,15 +24,20 @@ export const MapPage = () => {
 
     const getList = async () => {
         const res = await request(
-            'user/getMineralsList',
+            'user/getMineralAllList',
             'GET',
-            {
-                page: 1
-            },
+            {},
             {}
         );
 
         setList(res.message);
+    }
+
+    const handlerListClick = async (id) => {
+        const mineral = await getMineralInfo(id);
+        setMineralCoords(mineral.coords?.split(';').map(coorditane => coorditane.split(',')));
+        setMineral(mineral);
+        setMap(true);
     }
 
     useEffect(() => {
@@ -45,22 +49,26 @@ export const MapPage = () => {
             <div className={styles.content}>
                 {!isMap ? (
                     !loading &&
-                    <div className={styles.list}>
-                        {list && list.map(l => {
-                            return (
-                                <div
-                                    key={l._id}
-                                    className={styles.element}
-                                    onClick={() => setMap(true)}
-                                >
-                                    {l.title}
-                                </div>
-                            )
-                        })}
-                    </div>
+                    <>
+                        <h3>Pick mineral, beaaaach</h3>
+                        <div className={styles.list}>
+                            {list && list.map(l => {
+                                return (
+                                    <div
+                                        key={l._id}
+                                        className={styles.element}
+                                        onClick={() => handlerListClick(l._id)}
+                                    >
+                                        {l.title}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </>
                 ) : (
                     <>
                         <Button text={'Назад'} onClick={() => setMap(false)} />
+                        <div></div>
                         <YMaps>
                             <Map
                                 className={styles.map}
@@ -68,7 +76,7 @@ export const MapPage = () => {
                                 height="100%"
                                 width="100%"
                             >
-                                {mockCoord.map((m, i) => {
+                                {!loading && mineralCoords?.length > 0 && mineralCoords.map((m, i) => {
                                     return (
                                         <Placemark key={i} geometry={m} />
                                     )

@@ -83,8 +83,6 @@ router.post('/edit', [auth], async (req, res) => {
 
         const { id, title, imageURL, description, companies, coords } = req.body;
 
-        console.log('req.body', req.body);
-
         const element = await Element.findById(id);
         if (!element) {
             return res.status(400).json({ message: 'Неверный идентификатор' });

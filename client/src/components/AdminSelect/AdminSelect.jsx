@@ -18,11 +18,9 @@ export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
 
     const getList = async () => {
         const res = await request(
-            'user/getMineralsList',
+            'user/getMineralAllList',
             'GET',
-            {
-                page: 1
-            },
+            {},
             {}
         );
 
@@ -46,11 +44,9 @@ export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
         }
 
         const listRes = await request(
-            'user/getMineralsList',
+            'user/getMineralAllList',
             'GET',
-            {
-                page: 1
-            },
+            {},
             {}
         );
 

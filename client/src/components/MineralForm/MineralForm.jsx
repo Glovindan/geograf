@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useAlert  } from 'react-alert'
+import { useAlert } from 'react-alert'
 
 import { useHttp } from '../../hooks/http.hook'
 
@@ -29,23 +29,47 @@ export const MineralForm = ({ onBackClick, mineral = {}, isCreate }) => {
     const { error, loading, request } = useHttp();
 
     const handleMineralName = (event) => {
+        if (event.target.value.length > 100) {
+            alert.info('Название должно содержать меньше 100 символов')
+            return
+        };
         setMineralName(event.target.value);
     }
 
     const handleMineralAbout = (event) => {
+        if (event.target.value.length > 1000) {
+            alert.info('Описание должно содержать меньше 1000 символов')
+            return
+        };
         setMineralAbout(event.target.value);
     }
 
     const handleMineralCompany = (event) => {
+        if (event.target.value.length > 100) {
+            alert.info('Название компании должно содержать меньше 100 символов')
+            return
+        };
         setMineralCompany(event.target.value);
     }
 
     const handleMineralImage = (event) => {
+        if (event.target.value.length > 100000) {
+            alert.info('URL изображения должно содержать меньше 100000 символов')
+            return
+        };
         setMineralImage(event.target.value);
     }
 
     const handleMineralCoordinate = (event) => {
-        setMineralCoordinate(event.target.value);
+        if (event.target.value.length < mineralCoordinate.length) {
+            setMineralCoordinate(event.target.value);
+        }
+        
+        // только цифры ; . , и пробел
+        const reg = new RegExp('^\[0-9 \;\.\, ]*$'); 
+        if (reg.test(event.target.value)) {
+            setMineralCoordinate(event.target.value);
+        }
     }
 
     const requestHandler = async () => {

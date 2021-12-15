@@ -35,6 +35,7 @@ export const AboutMineral = () => {
                     <img className={styles.image} src={mineral?.imageURL} alt="main-polite-cat" />
                 </div>
                 <h2>{mineral?.title}</h2>
+                <h3>{mineral?.companies}</h3>
                 <h4>{mineral?.coords}</h4>
                 <p>
                     {mineral?.description}

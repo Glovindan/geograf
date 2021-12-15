@@ -50,7 +50,7 @@ export const MapPage = () => {
                 {!isMap ? (
                     !loading &&
                     <>
-                        <h3>Pick mineral, beaaaach</h3>
+                        <h3>Выберите минерал, чтобы посмотреть, где он добывается</h3>
                         <div className={styles.list}>
                             {list && list.map(l => {
                                 return (

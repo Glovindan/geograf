@@ -40,8 +40,6 @@ export const Auth = ({ onSuccessAuth }) => {
                 alert.error('Ошибочка вышла, хех :)');
                 return;
             }
-    
-            console.log('res', res);
 
             localStorage.setItem(LOCAL_STORAGE_KEY, res.token);
             alert.show(res.message);

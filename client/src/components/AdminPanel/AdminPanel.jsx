@@ -40,7 +40,7 @@ export const AdminPanel = ({ onExit }) => {
                 </div>
             ) : (
                 isAddMineral && <MineralForm onBackClick={() => setIsAddMineral(false)} isCreate={true} /> ||
-                isEditMineral && <AdminSelect textAbout={'Выберите элемент, который нужно отредактировать'} onBackClick={() => setIsDeleteMineral(false)} /> ||
+                isEditMineral && <AdminSelect textAbout={'Выберите элемент, который нужно отредактировать'} onBackClick={() => setIsEditMineral(false)} /> ||
                 isDeleteMineral && <AdminSelect isDelete={true} textAbout={'Выберите элемент, который нужно удалить'} onBackClick={() => setIsDeleteMineral(false)} />
             )}
         </div>

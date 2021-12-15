@@ -7,7 +7,14 @@
 }
 
 .btns {
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     gap: 25px;
+}
+
+@media (max-width: 850px) {
+    .btns {
+        flex-direction: column;
+        align-items: center;
+    }
 }

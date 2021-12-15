@@ -11,6 +11,7 @@ import styles from './MainPage.module.css';
 export const MainPage = () => {
     const [page, setPage] = useState(1);
     const [list, setList] = useState([]);
+    const [isOver, setIsOver] = useState(false);
     const alert = useAlert();
     const { request, loading, error } = useHttp();
 
@@ -30,6 +31,10 @@ export const MainPage = () => {
             {}
         )
 
+        if (res.message.length === 0) {
+            setIsOver(true);
+        }
+
         setList(res.message);
     }
 
@@ -47,11 +52,13 @@ export const MainPage = () => {
     }
 
     const prevPage = () => {
+        setIsOver(false);
+        if (page === 1) {
+            alert.info('Туда нельзя 0_о');
+            return;
+        }
+
         setPage((prev) => {
-            if (prev === 1) {
-                alert.info('Туда нельзя 0_о');
-                return;
-            }
             prev = prev - 1;
             getMineralList(prev);
             return prev;
@@ -64,7 +71,7 @@ export const MainPage = () => {
                 <MineralList list={list} loading={loading} />
                 <div className={styles.navButtons}>
                     <Button text="Предыдущая страница" onClick={prevPage} />
-                    <Button text="Следующая страница" onClick={nextPage} />
+                    {!isOver && <Button text="Следующая страница" onClick={nextPage} />}
                 </div>
             </div>
         </>

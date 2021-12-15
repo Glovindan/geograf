@@ -13,9 +13,10 @@ import { MainPage } from './Pages/MainPage/MainPage';
 
 import { AboutMineral } from './components/AboutMineral/AboutMineral';
 import { AdminPage } from './Pages/AdminPage/AdminPage';
+import { ErrorPage } from './Pages/ErrorPage/ErrorPage';
+import { MapPage } from './Pages/MapPage/MapPage';
 
 import styles from './App.module.css';
-import { ErrorPage } from './Pages/ErrorPage/ErrorPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Routes>
             <Route path={ROUTES.MAIN_PAGE} exact={true} element={<MainPage />} />
             <Route path={ROUTES.MINERAL_PAGE + '/:id'} element={<AboutMineral />} />
+            <Route path={ROUTES.MAP_PAGE} element={<MapPage />} />
             <Route path={ROUTES.ADMIN_PAGE} element={<AdminPage />} />
             <Route path={ROUTES.ERROR_PAGE} element={<ErrorPage />} />
 

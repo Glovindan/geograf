@@ -1,16 +1,24 @@
 .mineralList {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  
-    width: 100%;
-    margin-top: 30px;
-  }
-  
-  .navButtons {
-    margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.navButtons {
+  margin: 20px 0;
+
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@media (max-width: 850px) {
+  .navButtons {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+}

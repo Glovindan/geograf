@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
 
-    height: 60px;
+    min-height: 60px;
     width: 100%;
 
     background-color: rgba(255, 255, 255, 0.33);
@@ -21,4 +21,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+@media (max-width: 850px) {
+    .buttonsWrapper {
+        flex-direction: column;
+    }
 }

@@ -9,8 +9,6 @@ import { LOCAL_STORAGE_KEY } from '../../constants/constants'
 import styles from './AdminSelect.module.css'
 import { MineralForm } from '../MineralForm/MineralForm'
 
-const mock = ['кот', 'ещё кот', 'другой кот', 'четвёртый кот', 'me', 'michael']
-
 export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
     const [list, setList] = useState([]);
     const [mineral, setMineral] = useState(null);
@@ -20,11 +18,9 @@ export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
 
     const getList = async () => {
         const res = await request(
-            'user/getMineralsList',
+            'user/getMineralAllList',
             'GET',
-            {
-                page: 1
-            },
+            {},
             {}
         );
 
@@ -48,11 +44,9 @@ export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
         }
 
         const listRes = await request(
-            'user/getMineralsList',
+            'user/getMineralAllList',
             'GET',
-            {
-                page: 1
-            },
+            {},
             {}
         );
 
@@ -74,7 +68,6 @@ export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
     }
 
     const editMineral = async (id) => {
-        console.log(id);
         const mineral = await getMineralInfo(id);
         setMineral({
             id: id,

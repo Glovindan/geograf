@@ -1,10 +1,10 @@
-const {Router} = require('express');
+const { Router } = require('express');
 const { check, validationResult } = require('express-validator');
 const router = Router();
 const Element = require('../models/Element')
 const elementsListPageSize = 10;
 
-router.get('/getMineralsList', async(req,res) => {
+router.get('/getMineralsList', async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -14,7 +14,6 @@ router.get('/getMineralsList', async(req,res) => {
                 message: 'Вы допустили ошибку . . .'
             })
         }
-
         const {page, sortMode, isAscending} = req.query;
 
         const isAscendInt = parseInt(isAscending)
@@ -55,13 +54,13 @@ router.get('/getMineralsList', async(req,res) => {
             }
         ])
 
-        return res.status(200).json({ message: elementsAggregation});
+        return res.status(200).json({ message: elementsAggregation });
     } catch (e) {
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });
     }
 })
 
-router.get('/getMineralAllList', async(req,res) => {
+router.get('/getMineralAllList', async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -75,17 +74,17 @@ router.get('/getMineralAllList', async(req,res) => {
         const elementsAggregation = await Element.aggregate([
             {
                 $project: {
-                    "title":1
+                    "title": 1
                 }
             }
         ])
-        return res.status(200).json({ message: elementsAggregation});
+        return res.status(200).json({ message: elementsAggregation });
     } catch (e) {
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });
     }
 })
 
-router.get('/getMineral', async(req,res) => {
+router.get('/getMineral', async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -95,10 +94,9 @@ router.get('/getMineral', async(req,res) => {
                 message: 'Вы допустили ошибку . . .'
             })
         }
-        const {id} = req.query;
+        const { id } = req.query;
         const element = await Element.findById(id);
-        console.log(element, id)
-        return res.status(200).json({ message: element});
+        return res.status(200).json({ message: element });
     } catch (e) {
         return res.status(400).json({ message: 'Произошла ошибка на сервере' });
     }

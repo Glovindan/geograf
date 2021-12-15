@@ -16,7 +16,7 @@ router.get('/getMineralsList', async (req, res) => {
             })
         }
         const {page, sortMode, isAscending} = req.query;
-        //
+
         const isAscendInt = parseInt(isAscending);
 
         let sort;
@@ -26,7 +26,7 @@ router.get('/getMineralsList', async (req, res) => {
             case "1" : sort = isAscendInt? {"count":1} : {"count":-1};
                 break
         }
-        console.log(page, sortMode, isAscending, sort)
+        
         const elementsAggregation = await Element.aggregate([
             {
                 $project: {

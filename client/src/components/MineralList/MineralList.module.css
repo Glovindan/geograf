@@ -1,5 +1,6 @@
 .wrapper {
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(4, 200px);
     gap: 10px;
 
@@ -9,7 +10,6 @@
 
 @media (max-width: 850px) {
     .wrapper {
-        justify-content: center;
         grid-template-columns: repeat(2, 170px);
         gap: 5px;
     

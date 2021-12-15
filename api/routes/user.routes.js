@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check, validationResult } = require('express-validator');
 const router = Router();
 const Element = require('../models/Element')
-const elementsListPageSize = 10;
+const elementsListPageSize = 20;
 
 router.get('/getMineralsList', async (req, res) => {
     try {

@@ -14,12 +14,36 @@ router.get('/getMineralsList', async (req, res) => {
                 message: 'Вы допустили ошибку . . .'
             })
         }
-        const { page } = req.headers;
+        const {page, sortMode, isAscending} = req.query;
+
+        const isAscendInt = parseInt(isAscending)
+
+        let sort;
+        switch (sortMode) {
+            case "0" : sort = isAscendInt? {"title":1} : {"title":-1};
+            case "1" : sort = isAscendInt? {"count":1} : {"count":-1};
+        }
+
         const elementsAggregation = await Element.aggregate([
             {
                 $project: {
-                    "title": 1,
-                    "imageURL": 1
+                    "title" : 1,
+                    "imageURL" : 1,
+                    "coords" : 1,
+                    "count" : {
+                        $size: {
+                            $split: ["$coords",";"]
+                        }
+                    }
+                }
+            },
+            {
+                $sort: sort
+            },
+            {
+                $project: {
+                    "title" : 1,
+                    "imageURL" : 1
                 }
             },
             {

@@ -2,6 +2,7 @@ const {Router} = require('express');
 const { check, validationResult } = require('express-validator');
 const router = Router();
 const Element = require('../models/Element')
+const {parse} = require("dotenv");
 const elementsListPageSize = 10;
 
 router.get('/getMineralsList', async(req,res) => {
@@ -16,15 +17,17 @@ router.get('/getMineralsList', async(req,res) => {
         }
 
         const {page, sortMode, isAscending} = req.query;
-
-        const isAscendInt = parseInt(isAscending)
+        //
+        const isAscendInt = parseInt(isAscending);
 
         let sort;
         switch (sortMode) {
             case "0" : sort = isAscendInt? {"title":1} : {"title":-1};
+                break
             case "1" : sort = isAscendInt? {"count":1} : {"count":-1};
+                break
         }
-
+        console.log(page, sortMode, isAscending, sort)
         const elementsAggregation = await Element.aggregate([
             {
                 $project: {

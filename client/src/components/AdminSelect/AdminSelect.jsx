@@ -68,7 +68,6 @@ export const AdminSelect = ({ isDelete, textAbout, onBackClick }) => {
     }
 
     const editMineral = async (id) => {
-        console.log(id);
         const mineral = await getMineralInfo(id);
         setMineral({
             id: id,

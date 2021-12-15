@@ -19,3 +19,9 @@
 .input:focus-visible {
     outline: none;
 }
+
+@media (max-width: 850px) {
+    .wrapper {
+        width: 350px;
+    }
+}
